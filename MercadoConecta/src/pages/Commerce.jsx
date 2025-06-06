@@ -15,6 +15,7 @@ import { Product } from '../lib/Product';
 import ProductCard from '../components/ProductCard';
 import Paginator from '../components/Paginator';
 import ProductModal from '../components/ProductModal';
+import ProductDeleteModal from '../components/ProductDeleteModal';
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -34,6 +35,7 @@ export default function Commerce() {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalCount, setTotalCount] = useState(0);
   const [productId, setProductId] = useState(null);
+  const [isProductDeleteOpen, setProductDeleteOpen] = useState(false);
   const itemsPerPage = 3;
   const totalPages = Math.ceil(totalCount / itemsPerPage) || 1;
 
@@ -91,6 +93,11 @@ export default function Commerce() {
     await fecthProducts();
   }
 
+  const onDeleteProduct = async () => {
+    setProductDeleteOpen(false);
+    await fecthProducts();
+  }
+
 
   const fetchPublications = async () => {
     try {
@@ -109,6 +116,11 @@ export default function Commerce() {
   const openProductModalModify = async (id) => {
     await setProductId(id);
     setProductOpen(true);
+  }
+
+  const openProductModalDelete = async (id) => {
+    await setProductId(id);
+    setProductDeleteOpen(true);
   }
 
   useEffect(() => {
@@ -211,6 +223,7 @@ export default function Commerce() {
                   category={prod?.type_name}
                   isOwner={commerce?.is_owner}
                   onEdit={() => openProductModalModify(prod.id)}
+                  onDelete={() => openProductModalDelete(prod.id)}
                 />
               ))}
             </div>
@@ -234,7 +247,7 @@ export default function Commerce() {
       </div>
       <PublicationModal commereceId={id} userId={user?.id} isOpen={isPublicationOpen} onClose={() => setPublicationOpen(false)} onSave={onSavePublication} />
       <ProductModal commerceId={id} productId={productId} isOpen={isProductOpen} onClose={() => setProductOpen(false)} onSave={onSaveProduct} />
-
+      <ProductDeleteModal productId={productId} isOpen={isProductDeleteOpen} onClose={() => setProductDeleteOpen(false)} onSave={onDeleteProduct} />
     </div>
   );
 }
