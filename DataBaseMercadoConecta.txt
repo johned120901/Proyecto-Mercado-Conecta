@@ -51,12 +51,12 @@ CREATE TABLE public.notifications (
 );
 CREATE TABLE public.products (
   id integer NOT NULL DEFAULT nextval('products_id_seq'::regclass),
-  type character varying,
   name character varying NOT NULL,
   content text,
   price numeric,
   commerce_id integer,
   type_id integer,
+  image_url text,
   CONSTRAINT products_pkey PRIMARY KEY (id),
   CONSTRAINT products_type_id_fkey FOREIGN KEY (type_id) REFERENCES public.types(id),
   CONSTRAINT products_commerce_id_fkey FOREIGN KEY (commerce_id) REFERENCES public.commerces(id)
