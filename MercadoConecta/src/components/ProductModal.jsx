@@ -16,13 +16,13 @@ export default function ProductModal({ commerceId, productId = '', isOpen, onClo
       const { data } = await Product.getById(productId);
       const {
         name,
-        description,
+        content,
         price,
         image_url,
         type_name
       } = data;
       setName(name ?? '');
-      setDescription(description ?? '');
+      setDescription(content ?? '');
       setPrice(price ?? '');
       setImage(image_url ?? '');
       setType(type_name ?? '');
@@ -83,9 +83,7 @@ export default function ProductModal({ commerceId, productId = '', isOpen, onClo
   }, [isOpen, productId]);
 
 
-  if (!isOpen) {
-    return null
-  };
+  if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
