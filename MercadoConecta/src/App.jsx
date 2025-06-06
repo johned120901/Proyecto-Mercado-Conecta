@@ -1,0 +1,35 @@
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Toaster } from 'react-hot-toast';
+import { AuthProvider } from './components/providers/authContext';
+
+import Home from './pages/Home';
+import Dashboard from './pages/Dashboard';
+import Maps from './pages/Maps';
+import FavoriteCommercers from './pages/FavoriteCommercers';
+import Commerce from './pages/Commerce';
+
+// ❗ Si RedirectByRole está interfiriendo, coméntalo o ajústalo
+// import RedirectByRole from './components/RedirectByRole';
+
+function App() {
+  return (
+    <AuthProvider>
+      <Router>
+        <Toaster position="top-right" reverseOrder={false} />
+
+        {/* Si necesitas redirecciones automáticas por rol, descomenta esto */}
+        {/* <RedirectByRole /> */}
+
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path='/maps' element={<Maps />} />
+          <Route path='/favoriteCommercers' element={<FavoriteCommercers />} />
+          <Route path='/commerce' element={<Commerce />} />
+        </Routes>
+      </Router>
+    </AuthProvider>
+  );
+}
+
+export default App;
