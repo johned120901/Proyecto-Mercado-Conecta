@@ -39,7 +39,7 @@ export default function Profile() {
   };
 
   const onAddCommerce = () => {
-
+    navigate('/your-commerce');
   }
 
   const fetchCommerceOwner = async () => {
