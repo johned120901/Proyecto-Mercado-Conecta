@@ -22,7 +22,6 @@ export default function Profile() {
   const [isOpenFavorite, setIsFavorite] = useState(false);
   const [commerceId, setCommerceId] = useState('');
   const [isOpenProfile, setIsProfile] = useState(false);
-  const [profile, setProfile] = useState({});
   const navigate = useNavigate();
 
   const listButtons = [

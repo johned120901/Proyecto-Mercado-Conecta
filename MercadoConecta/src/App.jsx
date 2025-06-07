@@ -10,6 +10,7 @@ import Commerce from './pages/Commerce';
 import Profile from './pages/Profile';
 import YourCommerce from './pages/YourCommerce';
 import ProfileCommerce from './pages/ProfileCommerce';
+import SearchResult from './pages/SearchResult';
 
 // ❗ Si RedirectByRole está interfiriendo, coméntalo o ajústalo
 // import RedirectByRole from './components/RedirectByRole';
@@ -32,6 +33,7 @@ function App() {
           <Route path='/profile' element={<Profile />} />
           <Route path='/your-commerce' element={<YourCommerce />} />
           <Route path='/profile-commerce' element={<ProfileCommerce />} />
+          <Route path='/search-resut' element={<SearchResult />} />
         </Routes>
       </Router>
     </AuthProvider>

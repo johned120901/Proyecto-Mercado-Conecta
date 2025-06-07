@@ -7,6 +7,7 @@ import { User as UserModel } from '../lib/User';
 export default function NavBar() {
   const { user, logout } = useAuth(); // recupera el email del usuario logueado
   const [nombre, setNombre] = useState('');
+  const [searchValue, setSearch] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -28,13 +29,18 @@ export default function NavBar() {
     await logout();
     navigate('/');
   }
+
+  const search = () => {
+    navigate(`/search-resut?name=${searchValue}`);
+  }
+  
   return (
     <div className="mt-16 bg-blue-600 text-white px-6 py-3 flex items-center justify-between shadow-md">
       {/* Logo y título */}
-        <a href="/profile" className="flex items-center space-x-3 cursor-pointer hover:text-gray-300">
-          <User size={16} />
-          <span>{nombre || 'Usuario'}</span>
-        </a>
+      <a href="/profile" className="flex items-center space-x-3 cursor-pointer hover:text-gray-300">
+        <User size={16} />
+        <span>{nombre || 'Usuario'}</span>
+      </a>
 
       {/* Menú de navegación */}
       <div className="hidden md:flex space-x-6 text-sm font-medium">
@@ -49,8 +55,11 @@ export default function NavBar() {
           type="text"
           placeholder="Buscar..."
           className="px-3 py-1 text-sm text-black focus:outline-none w-full"
+          onChange={({ target: { value } }) => setSearch(value)}
         />
-        <button className="px-2 text-gray-600">
+        <button className="px-2 text-gray-600"
+          onClick={search}
+        >
           <Search size={18} />
         </button>
       </div>

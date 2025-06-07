@@ -52,6 +52,10 @@ export class Commerce {
       query = query.eq('type_id', filters.typeId);
     }
 
+    if (filters.score) {
+      query = query.eq('average_score', filters.score)
+    }
+
     const { data, error, count } = await query;
     if (error) throw new Error(error.message);
     return { data, count };
