@@ -69,4 +69,16 @@ export class User {
     if (error) throw new Error(error.message);
     return data;
   }
+
+
+  static async updateUserTable({ name, email }) {
+    const { error } = await supabase
+      .from('usuarios')
+      .update({ nombreusuarios: name })
+      .eq('correo', email);
+
+    if (error) throw new Error(error.message);
+  }
+
+
 }

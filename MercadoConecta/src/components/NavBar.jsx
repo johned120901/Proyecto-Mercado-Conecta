@@ -31,10 +31,10 @@ export default function NavBar() {
   return (
     <div className="mt-16 bg-blue-600 text-white px-6 py-3 flex items-center justify-between shadow-md">
       {/* Logo y título */}
-      <div className="flex items-center space-x-3 cursor-pointer hover:text-gray-300">
-        <User size={16} />
-        <span>{nombre || 'Usuario'}</span>
-      </div>
+        <a href="/profile" className="flex items-center space-x-3 cursor-pointer hover:text-gray-300">
+          <User size={16} />
+          <span>{nombre || 'Usuario'}</span>
+        </a>
 
       {/* Menú de navegación */}
       <div className="hidden md:flex space-x-6 text-sm font-medium">

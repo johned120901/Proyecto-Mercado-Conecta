@@ -73,12 +73,20 @@ export class Commerce {
       .from('v_commerce_user_insight')
       .select('*')
       .eq('commerce_id', commerceId)
-      .eq('user_auth_id', userIdAuth) // <- corregido aquí
+      .eq('user_auth_id', userIdAuth)
       .single();
     if (error) throw new Error(error.message);
     return data;
   }
 
-
+  static async getCommerceOwner(userIdAuth) {
+    const { data, error } = await supabase
+      .from('v_commerce_user_insight')
+      .select('*')
+      .eq('is_owner', true)
+      .eq('user_auth_id', userIdAuth);
+    if (error) throw new Error(error.message);
+    return data;
+  }
 
 }

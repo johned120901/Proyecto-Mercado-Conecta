@@ -16,6 +16,20 @@ export class FavoriteCommerces {
     return { data, count };
   }
 
+  static async getFavoritesByUser(userId) {
+    const { data, error } = await supabase
+      .from('v_favorite_commerces')
+      .select('*')
+      .eq('user_id', userId);
+
+    if (error) {
+      console.error('Error fetching favorites:', error);
+      return [];
+    }
+
+    return data;
+  }
+
   static async addFavorite(userId, commerceId) {
     const { error } = await supabase
       .from('favorite_commerces')
