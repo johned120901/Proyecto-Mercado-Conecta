@@ -9,6 +9,7 @@ import FavoriteCommercers from './pages/FavoriteCommercers';
 import Commerce from './pages/Commerce';
 import Profile from './pages/Profile';
 import YourCommerce from './pages/YourCommerce';
+import ProfileCommerce from './pages/ProfileCommerce';
 
 // ❗ Si RedirectByRole está interfiriendo, coméntalo o ajústalo
 // import RedirectByRole from './components/RedirectByRole';
@@ -30,6 +31,7 @@ function App() {
           <Route path='/commerce' element={<Commerce />} />
           <Route path='/profile' element={<Profile />} />
           <Route path='/your-commerce' element={<YourCommerce />} />
+          <Route path='/profile-commerce' element={<ProfileCommerce />} />
         </Routes>
       </Router>
     </AuthProvider>

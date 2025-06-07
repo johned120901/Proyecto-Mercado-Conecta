@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { ImagePlus } from 'lucide-react';
 
-export default function ImageUploadField({ onUpload, label = "Adjuntar foto del producto", initialUrl = '' }) {
+export default function ImageUploadField({ onUpload, label = "Adjuntar foto del producto", initialUrl = '', commerce = false }) {
   const [uploading, setUploading] = useState(false);
   const [uploadedUrl, setUploadedUrl] = useState('');
   const [error, setError] = useState('');
@@ -61,7 +61,7 @@ export default function ImageUploadField({ onUpload, label = "Adjuntar foto del 
             className="hidden"
           />
         </label>
-        {uploadedUrl && <span className="text-sm text-green-600">✅ Imagen cargada</span>}
+        {uploadedUrl && !commerce && <span className="text-sm text-green-600">✅ Imagen cargada</span>}
       </div>
 
       {uploadedUrl && (

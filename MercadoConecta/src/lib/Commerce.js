@@ -59,9 +59,9 @@ export class Commerce {
 
   static async getById(id) {
     const { data, error } = await supabase
-      .from('commerces')
+      .from('vista_comercio_con_tipo')
       .select('*')
-      .eq('id', id)
+      .eq('comercio_id', id)
       .single(); // Esperamos solo un resultado
 
     if (error) throw new Error(error.message);

@@ -58,22 +58,64 @@ export default function YourCommerce() {
     try {
       if (id) {
         await Commerce.update(id, { name: payload.name, location: payload.location, owner_id: payload.owner_id, type_id: payload.type_id })
-          .then(navigate(`/commerce?id${id}`))
+          .then(navigate(`/profile-commerce?id=${id}`))
       } else {
         await Commerce.create(payload).then(navigate('/profile'))
       }
     } catch (error) {
       console.error(error.message);
     }
+  }
 
+  const hasLogin = () => {
+    if (!user) {
+      navigate('/');
+    }
+  };
+
+
+  function parseAddress(address) {
+    const regex = /^(\w+)\s+(\d+)([A-Z]?)\s*(BIS)?\s*([A-Z]{1,2})?\s*#\s*(\d+)([A-Z]?)\s*(BIS)?\s*([A-Z]{1,2})?\s*-\s*(\d+),\s*(.*)$/i;
+    const match = address.match(regex);
+
+    if (match) {
+      setTipoVia(match[1] || "");
+      setNumero1(match[2] || "");
+      setLetra1(match[3] || "");
+      setBis1(!!match[4]);
+      setCardinalidad1(match[5] || "");
+      setNumero2(match[6] || "");
+      setLetra2(match[7] || "");
+      setBis2(!!match[8]);
+      setCardinalidad2(match[9] || "");
+      setNumero3(match[10] || "");
+      setDatosAdicionales(match[11] || "");
+    } else {
+      console.warn("Dirección no coincide con el formato esperado.");
+    }
+  }
+
+  const fetchCommerce = async () => {
+    if (id) {
+      const data = await Commerce.getById(id);
+      const { nombre_comercio, location, tipo_id } = data;
+      setNombreTienda(nombre_comercio);
+      setCategoria(tipo_id);
+      parseAddress(location);
+    }
   }
 
   useEffect(() => {
     const partOne = [tipoVia, numero1, letra1, bis1 ? 'BIS' : '', cardinalidad1].filter(Boolean).join(" ");
     const partTwo = [numero2, letra2, bis2 ? 'BIS' : '', cardinalidad2].filter(Boolean).join(" ");
-    const address = `${partOne} # ${partTwo} - ${numero3}`;
+    const address = `${partOne} # ${partTwo} - ${numero3}, ${datosAdicionales}`;
     setAddress(address);
-  }, [tipoVia, numero1, letra1, bis1, cardinalidad1, numero2, letra2, bis2, cardinalidad2, numero3, datosAdicionales])
+  }, [tipoVia, numero1, letra1, bis1, cardinalidad1, numero2, letra2, bis2, cardinalidad2, numero3, datosAdicionales]);
+
+  useEffect(() => {
+    fetchCommerce();
+    hasLogin();
+  }, [id]);
 
   return (
     <div>
@@ -110,10 +152,26 @@ export default function YourCommerce() {
                 className="px-3 py-2 rounded-full bg-white border border-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-vibrant text-blue-darkest"
               >
                 <option value="">Tipo de vía</option>
-                <option value="calle">Calle</option>
-                <option value="carrera">Carrera</option>
-                <option value="avenida">Avenida</option>
+                <option value="Autopista">Autopista</option>
+                <option value="Avenida">Avenida</option>
+                <option value="Avenida Calle">Avenida Calle</option>
+                <option value="Avenida Carrera">Avenida Carrera</option>
+                <option value="Bulevar">Bulevar</option>
+                <option value="Calle">Calle</option>
+                <option value="Carrera">Carrera</option>
+                <option value="Carretera">Carretera</option>
+                <option value="Circular">Circular</option>
+                <option value="Circunvalar">Circunvalar</option>
+                <option value="Diagonal">Diagonal</option>
+                <option value="Pasaje">Pasaje</option>
+                <option value="Paseo">Paseo</option>
+                <option value="Peatonal">Peatonal</option>
+                <option value="Transversal">Transversal</option>
+                <option value="Troncal">Troncal</option>
+                <option value="Variante">Variante</option>
+                <option value="Vía">Vía</option>
               </select>
+
               <input
                 type="number"
                 maxLength={3}
@@ -214,7 +272,8 @@ export default function YourCommerce() {
               onClick={fetchCreateOrUpdate}>
               Guardar
             </button>
-            <button className="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-6 rounded">
+            <button className="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-6 rounded"
+              onClick={() => navigate(-1)}>
               Cancelar
             </button>
           </div>

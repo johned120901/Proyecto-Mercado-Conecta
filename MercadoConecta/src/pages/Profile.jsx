@@ -66,7 +66,7 @@ export default function Profile() {
   }
 
   const onStoreClick = (store) => {
-    navigate(`/commerce?id=${store.id}`)
+    navigate(`/profile-commerce?id=${store.id}`)
   }
 
   const onFavoriteRemove = (commerce) => {

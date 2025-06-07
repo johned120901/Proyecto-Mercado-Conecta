@@ -77,7 +77,7 @@ export default function BusinessGrid() {
           {commerces.map((c, i) => (
             <CommerceInfoBox
               key={i}
-              image={'https://via.placeholder.com/300x200'} // Reemplaza con c.image_url si está disponible
+              image={c.image_url} // Reemplaza con c.image_url si está disponible
               commerceName={c.commerce_name}
               location={c.location}
               calification={c.average_score ?? 0}

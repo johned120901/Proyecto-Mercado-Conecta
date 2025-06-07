@@ -167,6 +167,7 @@ export default function Commerce() {
                 listButtons={listButtons}
                 showConfig={commerce.is_owner}
                 onButtonClick={handleSidebarButtonClick}
+                onConfig={() => navigate(`/profile-commerce?id=${id}`)}
               />
             )}
           </div>
